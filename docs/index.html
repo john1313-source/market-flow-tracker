@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F2F3F5" />
+    <meta name="description" content="외국인·기관 수급과 코스피200 선물 베이시스를 추적하는 대시보드" />
+    <title>한국 주식시장 수급 트래커</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">KOREA MARKET FLOW</p>
+          <h1>한국 주식시장 수급 트래커</h1>
+          <p class="subtitle">외국인과 기관의 현물·선물 포지션을 한눈에 확인하세요.</p>
+        </div>
+        <div class="as-of" aria-live="polite">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span id="latest-date">데이터 불러오는 중</span>
+        </div>
+      </header>
+
+      <section id="summary" class="summary-grid" aria-label="최신 시장 요약">
+        <article class="metric-card">
+          <span class="metric-label">외국인 현물</span>
+          <strong id="spot-value" class="metric-value">—</strong>
+          <span id="spot-sub" class="metric-sub">20일 누적 —</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">외국인 선물</span>
+          <strong id="futures-flow-value" class="metric-value">—</strong>
+          <span id="futures-flow-sub" class="metric-sub">20일 누적 —</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">베이시스</span>
+          <strong id="basis-value" class="metric-value">—</strong>
+          <span id="basis-sub" class="metric-sub">이론 —</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">괴리율</span>
+          <strong id="gap-value" class="metric-value">—</strong>
+          <span id="basis-badge" class="badge neutral">데이터 확인 중</span>
+        </article>
+      </section>
+
+      <div id="error-state" class="notice" hidden role="status"></div>
+
+      <section class="charts" aria-label="수급 차트">
+        <article class="chart-card">
+          <div class="chart-heading">
+            <div>
+              <span class="chart-number">01</span>
+              <h2>외국인 현물 수급</h2>
+            </div>
+            <p>일별 순매수와 20거래일 누적</p>
+          </div>
+          <div id="spot-chart" class="chart" role="img" aria-label="외국인 현물 순매수 차트"></div>
+        </article>
+
+        <article class="chart-card">
+          <div class="chart-heading">
+            <div>
+              <span class="chart-number">02</span>
+              <h2>외국인 선물 수급</h2>
+            </div>
+            <p>일별 순매수와 미결제약정</p>
+          </div>
+          <div id="futures-chart" class="chart" role="img" aria-label="외국인 선물 순매수와 미결제약정 차트"></div>
+        </article>
+
+        <article class="chart-card wide">
+          <div class="chart-heading">
+            <div>
+              <span class="chart-number">03</span>
+              <h2>선물 베이시스</h2>
+            </div>
+            <p>실제 베이시스와 이론가 · 음영은 백워데이션</p>
+          </div>
+          <div id="basis-chart" class="chart" role="img" aria-label="실제 베이시스와 이론 베이시스 차트"></div>
+        </article>
+
+        <article class="chart-card wide">
+          <div class="chart-heading">
+            <div>
+              <span class="chart-number">04</span>
+              <h2>금융투자 현물 수급</h2>
+            </div>
+            <p>차익거래 움직임을 보는 프록시</p>
+          </div>
+          <div id="finance-chart" class="chart" role="img" aria-label="금융투자 현물 순매수 차트"></div>
+        </article>
+      </section>
+
+      <footer>
+        <span>장 마감 후 매 영업일 업데이트</span>
+        <span id="source-label">KRX · pykrx</span>
+      </footer>
+    </main>
+  </body>
+</html>
+

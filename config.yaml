@@ -1,0 +1,24 @@
+# 금리와 배당수익률은 소수로 입력합니다. (예: 2.65% -> 0.0265)
+market:
+  cd_rate: 0.0265
+  dividend_yield: 0.0180
+
+collector:
+  # 2026년 KRX 로그인 정책에 따라 pykrx와 OTP 수집 모두 계정 세션을 사용합니다.
+  require_krx_credentials: true
+  request_timeout_seconds: 20
+  request_interval_seconds: 0.4
+  kospi200_index_ticker: "1028"
+  kospi200_futures_product_id: "KRDRVFUK2I"
+
+  # KRX 화면 개편에 대비해 후보 BLD를 순서대로 시도합니다.
+  krx_front_month_blds:
+    - "dbms/MDC/STAT/standard/MDCSTAT12701"
+  krx_investor_blds:
+    - "dbms/MDC/STAT/standard/MDCSTAT13101"
+
+  naver_futures_url: "https://m.stock.naver.com/domestic/index/FUT/total"
+
+telegram:
+  # 본인의 Pages 주소로 바꾸세요. DASHBOARD_URL 환경변수로 덮어쓸 수도 있습니다.
+  dashboard_url: "https://YOUR_GITHUB_ID.github.io/YOUR_REPOSITORY/"
