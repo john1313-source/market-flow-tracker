@@ -8,6 +8,8 @@ collector:
   require_krx_credentials: true
   request_timeout_seconds: 20
   request_interval_seconds: 0.4
+  # 수집 실패로 빠진 거래일을 일일 실행 때 며칠 전까지 다시 채울지 (0이면 끔)
+  gap_fill_lookback_days: 45
   kospi200_index_ticker: "1028"
   kospi200_futures_product_id: "KRDRVFUK2I"
 
@@ -21,4 +23,4 @@ collector:
 
 telegram:
   # 본인의 Pages 주소로 바꾸세요. DASHBOARD_URL 환경변수로 덮어쓸 수도 있습니다.
-  dashboard_url: "https://YOUR_GITHUB_ID.github.io/YOUR_REPOSITORY/"
+  dashboard_url: "https://john1313-source.github.io/market-flow-tracker/"

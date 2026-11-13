@@ -38,3 +38,23 @@ def test_direction_change_and_message():
     assert 'parse_mode' not in message
     assert '<a href="https://example.github.io/flows/">대시보드</a>' in message
 
+
+
+def test_streak_cumulative_and_missing_futures_flow():
+    from market_tracker.telegram import cumulative, streak_text
+
+    frame = pd.DataFrame(
+        {
+            "date": ["2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20"],
+            "foreign": [100, -200, -300, -400],
+            "foreign_futures": [0, 0, 0, 0],
+            "institution_futures": [0, 0, 0, 0],
+            "k200_close": [1000, 1010, 1020, 1030],
+        }
+    )
+    assert streak_text(frame, "foreign") == "3일 연속 순매도"
+    assert cumulative(frame, "foreign", 3) == -900
+    assert cumulative(frame, "foreign", 5) is None
+    message = build_message(frame, "https://example.github.io/flows/")
+    assert "투자자 수급: 데이터 확인 필요" in message
+    assert "외인: 3일 연속 순매도" in message

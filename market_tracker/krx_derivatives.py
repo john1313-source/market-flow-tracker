@@ -153,6 +153,11 @@ class KrxDerivativesCollector:
             raise KrxUnavailable("KRX 최근월물 CSV에서 종가 또는 미결제약정을 찾지 못했습니다.")
         if foreign is None:
             raise KrxUnavailable("KRX 투자자 CSV에서 외국인 선물 순매수를 찾지 못했습니다.")
+        if foreign == 0 and not institution:
+            # 외국인·기관 선물 순매수가 동시에 0인 날은 사실상 없으므로 원본을 로그에 남깁니다.
+            print(f"{trading_date}: 선물 투자자 수급이 0으로 파싱됨 - KRX 원본 확인 필요")
+            print(f"  컬럼: {list(investor.columns)}")
+            print(investor.head(15).to_string(index=False))
         return DerivativeData(
             futures_close=close,
             foreign_futures=foreign,
